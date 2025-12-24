@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tab-title">PROGRAM_INTIATE_TOPSECRET</title>
+    <style>
+        /* BASE STYLES */
+        body {
+            background-color: #050505;
+            color: #33ff00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* CRT SCANLINE EFFECT OVERLAY */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* BUTTON STYLING */
+        #entry-btn {
+            background: black;
+            color: #33ff00;
+            border: 2px solid #33ff00;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.2s;
+        }
+
+        #entry-btn:hover {
+            background: #33ff00;
+            color: black;
+            box-shadow: 0 0 20px #33ff00;
+        }
+
+        /* LOG CONTAINER */
+        #log-container {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            border-left: 1px solid #333;
+            padding-left: 20px;
+            z-index: 1;
+        }
+
+        /* LOG ENTRIES */
+        .log-entry {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 10px;
+        }
+
+        .log-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .log-title:before {
+            content: "[+] ";
+        }
+
+        .log-title:hover {
+            text-shadow: 0 0 8px currentColor;
+        }
+
+        /* LOG CONTENT */
+        .log-content {
+            display: none;
+            margin-top: 10px;
+            color: #aaaaaa;
+            padding-left: 28px;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-family: 'Lucida Console', monospace;
+        }
+
+        .reveal {
+            display: block;
+            animation: textFlicker 0.1s;
+        }
+
+        /* --- SPECIAL EFFECTS --- */
+        .glitch-text {
+            color: #ff3333;
+            animation: glitch-anim 0.3s infinite;
+            display: inline-block;
+        }
+
+        .scary-text {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes textFlicker {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            70% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+
+    <div id="login-stage">
+        <button id="entry-btn" onclick="attemptLogin()">ACCESS_CONSOLE</button>
+    </div>
+
+    <div id="log-container">
+        
+        <div class="log-entry">
+            <div class="log-title" onclick="toggleText('log1')">File 1</div>
+            <div id="log1" class="log-content">
+                Weird, I haven't spawned any npcs yet.
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-title" onclick="toggleText('log2')">File 2</div>
+            <div id="log2" class="log-content">
+                It's me, it's been 5 days already, the mysterious scientist is still here watching me and dissapearing when I approach him.
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-title glitch-text" onclick="toggleText('log3')">File 3</div>
+            <div id="log3" class="log-content" style="color:#dbaeb1;">
+                I logged onto gm_construct but it was covered in ERROR textures and the skybox was black for some reason.
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-title" onclick="toggleText('log4')">File 4</div>
+            <div id="log4" class="log-content scary-text">
+                No.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function attemptLogin() {
+            let attempt = prompt("AUTHENTICATION REQUIRED:");
+            
+            if (attempt === "24122025") {
+                // Update Tab Title
+                document.title = "PROGRAM_INTIATED_TOPSECRET_FILES";
+                
+                // Switch interface
+                document.getElementById("login-stage").style.display = "none";
+                document.getElementById("log-container").style.display = "block";
+                document.body.style.justifyContent = "flex-start";
+                document.body.style.paddingTop = "50px";
+            } else if (attempt !== null) {
+                alert("ERR: INCORRECT_PASSCODE");
+            }
+        }
+
+        function toggleText(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+                content.classList.add("reveal");
+            }
+        }
+    </script>
+</body>
+</html>
